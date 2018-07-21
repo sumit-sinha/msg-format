@@ -1,5 +1,5 @@
+import { DateTimeFormat } from 'dt-format';
 import { MessageFormatType } from "./message.format.type";
-import { DateTimeFormat } from "../date";
 
 type MessageFormatArgsType = string | number | boolean | Date;
 type MessageFormatArgs = string | number | boolean | Date | MessageFormatArgsType[];
