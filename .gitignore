@@ -21,7 +21,8 @@ bower_components
 
 .lock-wscript
 
-build/Release
+build/
+dist/
 
 node_modules/
 jspm_packages/

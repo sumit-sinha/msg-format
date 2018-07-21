@@ -1,8 +1,16 @@
-# JS-Utils
+# Message Format
 
 A utility to format string messages. It is influenced by Java's `MessageFormat` class and support most of its functionality.
 
 ## Usage
+
+Install the package using `npm` as shown below
+
+```
+npm install --save msg-format
+```
+
+You can import the `MessageFormat` class and use it as shown below
 
 ### String
 
@@ -25,7 +33,7 @@ const name = 'Groot';
 const state = 'hungry';
 console.info(MessageFormat.format(text, [name, state])); // I am Groot!!!I am hungry
 ```
-Date/Time
+### Date/Time
 
 ```javascript
 const date = new Date();
