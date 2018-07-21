@@ -4,7 +4,8 @@
       "noImplicitAny": true,
       "removeComments": true,
       "preserveConstEnums": true,
-      "sourceMap": true
+      "sourceMap": false,
+      "outDir": "build"
   },
   "include": [
       "src/**/*"
@@ -12,5 +13,8 @@
   "exclude": [
       "node_modules",
       "src/**/*.test.ts"
+  ],
+  "types": [
+      "global.d.ts"
   ]
 }

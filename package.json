@@ -2,9 +2,9 @@
   "name": "msg-format",
   "version": "1.0.1",
   "description": "message formatter for javascript",
-  "main": "src/index.ts",
+  "main": "build/index.js",
   "scripts": {
-    "build": "rm -rf build && webpack --config webpack.config.js --mode production",
+    "build": "rm -rf build && tsc",
     "test": "ts-mocha src/**/*.test.ts"
   },
   "keywords": [
