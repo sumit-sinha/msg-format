@@ -1,7 +1,7 @@
 {
-  "name": "js-utils",
+  "name": "msg-format",
   "version": "1.0.0",
-  "description": "set of utility functions for javascript",
+  "description": "message formatter for javascript",
   "main": "index.js",
   "scripts": {
     "test": "ts-mocha src/**/*.test.ts"
@@ -11,6 +11,7 @@
     "utils"
   ],
   "author": "sumit.sinha",
+  "repository": "https://github.com/sumit-sinha/msg-format",
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.1.4",
@@ -21,8 +22,5 @@
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
     "typescript": "^2.9.2"
-  },
-  "dependencies": {
-    "js-format": "^0.2.0"
   }
 }
