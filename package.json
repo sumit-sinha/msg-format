@@ -29,6 +29,6 @@
     "typescript": "^2.9.2"
   },
   "dependencies": {
-    "dt-format": "^1.0.7"
+    "dt-format": "^1.0.8"
   }
 }
