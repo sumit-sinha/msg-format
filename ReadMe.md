@@ -1,4 +1,4 @@
-# Message Format
+# Message Format [![Build Status](https://travis-ci.org/sumit-sinha/msg-format.png)](https://travis-ci.org/sumit-sinha/msg-format/)
 
 A utility to format string messages. It is influenced by Java's `MessageFormat` class and support most of its functionality.
 
@@ -40,3 +40,26 @@ const date = new Date();
 console.info(MessageFormat.format('Current time: {0, time}', date)); // Current time: 16:32
 console.info(MessageFormat.format('Today: {0, date}', date)); // Today: 21/07/2018
 ```
+
+### Localization
+```javascript
+import { MessageFormat, MessageLocale } from 'msg-format';
+
+const date = new Date();
+console.info(MessageFormat.format('Today is: {0, date, EEEE}', date)); // Today is: Sunday
+console.info(MessageFormat.formatWithLocale('Aujourd\'hui est {0, date, EEEE}. Bonjour {1}', MessageLocale.fr_FR, date, 'John Doe')); // Aujourd'hui est Dimanche. Bonjour John Doe
+```
+
+## MessageLocale
+
+Below is the table with all the supported locale in this library. You can get all the mentioned values from `MessageLocale` object.
+
+| Language  | Code |
+| --- | --- |
+| English | en_GB |
+| French | fr_FR |
+| German | de_DE |
+| Simplified Chinese | zh_CN |
+| Russian | ru_RU |
+| Arabic | ar_SA |
+| Japanese | ja_JP |

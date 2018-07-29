@@ -1,5 +1,6 @@
 import { DateTimeFormat } from 'dt-format';
-import { MessageFormatType } from "./message.format.type";
+import { MessageFormatType } from './message.format.type';
+import { MessageLocale } from './message.locale';
 
 type MessageFormatArgsType = string | number | boolean | Date;
 type MessageFormatArgs = string | number | boolean | Date | MessageFormatArgsType[];
@@ -20,23 +21,27 @@ const getPatternArray = (matches: RegExpExecArray) => {
   }
 
   return patternArray;
-}
+};
 
-const getPatternValue =
-  (value: MessageFormatArgs, type: MessageFormatType, subPattern?: string) => {
-    if (!(value instanceof Date) || type == null) {
-      return '';
-    }
-
-    switch (type.trim()) {
-      case MessageFormatType.TIME:
-        return DateTimeFormat.format(value, subPattern ? subPattern.trim() : 'HH:mm');
-      case MessageFormatType.DATE:
-        return DateTimeFormat.format(value, subPattern ? subPattern.trim() : 'dd/MM/yyyy');
-      default:
-        return '';
-    }
+const getPatternValue = (
+  value: MessageFormatArgs,
+  type: MessageFormatType,
+  subPattern?: string,
+  locale?: MessageLocale,
+) => {
+  if (!(value instanceof Date) || type == null) {
+    return '';
   }
+
+  switch (type.trim()) {
+    case MessageFormatType.TIME:
+      return DateTimeFormat.format(value, subPattern ? subPattern.trim() : 'HH:mm', locale);
+    case MessageFormatType.DATE:
+      return DateTimeFormat.format(value, subPattern ? subPattern.trim() : 'dd/MM/yyyy', locale);
+    default:
+      return '';
+  }
+};
 
 /**
  * check the pattern and converts the value from argument based on pattern
@@ -44,8 +49,12 @@ const getPatternValue =
  * @param values array of all the passed arguments
  * @returns string
  */
-const getValueToReplace = (patternArray: string[], values: MessageFormatArgs[]): string => {
-  const passedItems = 
+const getValueToReplace = (
+  patternArray: string[],
+  values: MessageFormatArgs[],
+  locale?: MessageLocale,
+): string => {
+  const passedItems =
     values.length === 1 && values[0] instanceof Array
       ? values[0] as MessageFormatArgs[]
       : values;
@@ -56,30 +65,53 @@ const getValueToReplace = (patternArray: string[], values: MessageFormatArgs[]):
     case 1:
       return passedItems[Number(patternArray[0])].toString();
     case 2:
-      return getPatternValue(passedItems[Number(patternArray[0])], patternArray[1] as MessageFormatType);
+      return getPatternValue(
+        passedItems[Number(patternArray[0])],
+        patternArray[1] as MessageFormatType,
+        undefined,
+        locale,
+      );
     case 3:
     default:
       return getPatternValue(
         passedItems[Number(patternArray[0])],
         patternArray[1] as MessageFormatType,
         patternArray[2],
+        locale,
       );
   }
-}
+};
 
 export class MessageFormat {
+
   /**
    * function to format a string based on passed argument
    * @param value string
    * @param args value to replace in string based on defined format
+   * @returns string
    */
-  public static format(value: string, ...args: MessageFormatArgs[]) {
+  public static format(value: string, ...args: MessageFormatArgs[]): string {
+    return MessageFormat.formatWithLocale(value, MessageLocale.en_GB, ...args);
+  }
+
+  /**
+   * function to format a string based on passed argument and locale
+   * @param value string
+   * @param locale MessageLocale
+   * @param args value to replace in string based on defined format
+   * @returns string
+   */
+  public static formatWithLocale(
+    value: string,
+    locale: MessageLocale,
+    ...args: MessageFormatArgs[] // tslint:disable-line trailing-comma
+  ) {
     let output = value;
     let matchIndex = 0;
 
     let matches = PATTERN_REGEX.exec(value);
     while (matches) {
-      const valueToReplace = getValueToReplace(getPatternArray(matches), args);
+      const valueToReplace = getValueToReplace(getPatternArray(matches), args, locale);
       output = output.replace(matches[0], valueToReplace);
 
       matchIndex = matchIndex + 1;
